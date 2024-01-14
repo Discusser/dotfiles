@@ -1,0 +1,9 @@
+[window]
+# resize_increments = true
+
+[font]
+normal = { family = "JetbrainsMono NF", style = "Regular" }
+
+[colors.primary]
+background = "#222526"
+foreground = "#c7b89d"

@@ -1,0 +1,46 @@
+#!/bin/zsh
+
+# colors=("#1B1B1B" "#292929" "#F5F9E9" "#5DCFE9" "#A0A0BB") # Custom color scheme
+# colors=("#282828" "#3c3836" "#d5c4a1" "#458588" "#83a598") # Gruvbox color scheme
+colors=("#222526" "#313435" "#ddd4c4" "#6d8dad" "#83a598") # Gruvchad modified
+opacity=90 # 0 to 100
+opacity_scaled=$((90.0 / 100 * 255))
+colors_transparent=()
+
+make_transparent ()
+{
+  base_color=$1
+  transparency=$2
+  echo "#"$(([##16]$opacity_scaled))${base_color:1}
+}
+
+make_transparent_array ()
+{
+  # Sadly this uses global variables, or else it would be overcomplicated
+  for i in {1..$#colors}
+  do
+    colors_transparent+=($(make_transparent ${colors[$i]} $opacity_scaled))
+  done
+}
+
+# Color scheme and polybar settings
+make_transparent_array
+export THEME_BACKGROUND=${colors[1]}
+export THEME_BACKGROUND_TRANSPARENT=${colors_transparent[1]}
+export THEME_BACKGROUND_ALT=${colors[2]}
+export THEME_BACKGROUND_ALT_TRANSPARENT=${colors_transparent[2]}
+export THEME_FOREGROUND=${colors[3]}
+export THEME_FOREGROUND_TRANSPARENT=${colors_transparent[3]}
+export THEME_PRIMARY=${colors[4]}
+export THEME_PRIMARY_TRANSPARENT=${colors_transparent[4]}
+export THEME_SECONDARY=${colors[5]}
+export THEME_SECONDARY_TRANSPARENT=${colors_transparent[5]}
+export THEME_ALERT="#A54242"
+export THEME_DISABLED="#707880"
+export THEME_TRANSPARENT="#00000000"
+export COLORS_GREEN="#98971a"
+export COLORS_YELLOW="#d79921"
+export POLYBAR_LEFT_SEPARATOR=""
+export POLYBAR_RIGHT_SEPARATOR=""
+export POLYBAR_SPACE=""
+export POLYBAR_SEPARATOR=$POLYBAR_RIGHT_SEPARATOR$POLYBAR_SPACE$POLYBAR_LEFT_SEPARATOR
